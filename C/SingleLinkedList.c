@@ -7,7 +7,7 @@
   
   (MinGW.org GCC-8.2.0-5) 8.2.0
   Copyright (C) 2018 Free Software Foundation, Inc.
-       
+    
 */
 
 #include<stdio.h>
@@ -25,6 +25,7 @@ void fillRandom(int);				//Adds given number of nodes in a list and fills them w
 int listLength();					//Returns the number of nodes in the list
 void printList();					//Displays data in all nodes in a list, starting from the first node
 void swap(int,int);					//Swaps two elements of two given positions
+void reverseList();					//Reverses the list
 
 struct node					//defining structure of the linked list node
 {
@@ -40,7 +41,7 @@ void main()
 	printf("\n\nThis program implements a single linked list and its various operations\n");
 	while(1)
 	{
-		printf("\n\n\n===============================================\nSelect an option\n\n1.Insert element\n2.Delete element\n3.Display\n4.Find length of list\n5.Fill list\n6.Swap elements\n7.Quit\n===============================================\n\nSelected option is ");
+		printf("\n\n\n===============================================\nSelect an option\n\n1.Insert element\n2.Delete element\n3.Display\n4.Find length of list\n5.Fill list\n6.Swap elements\n7.Reverse the list\n8.Quit\n===============================================\n\nSelected option is ");
 		scanf("%d",&option);
 		switch(option)
 		{
@@ -117,8 +118,11 @@ void main()
 					scanf("%d %d",&pos,&pos2);
 					swap(pos,pos2);
 					break;
-					
-			case 7: 
+			
+			case 7: reverseList();
+					printf("\nThe list is reversed !\n");
+					break;
+			case 8: 
 					exit(0);
 					break;
 			
@@ -301,4 +305,29 @@ void swap(int pos1,int pos2)
 	q->data = p->data;
 	p->data = temp;
 	
-}	
+}
+
+void reverseList()
+{
+	int i,j,temp,length,pos=0;
+	struct node *p,*q;
+	i=1; j=listLength();
+	while(i<j)
+	{
+		p=q=root;	//bring pointers to first node
+		for(pos=1;pos<i;pos++)
+		{
+			p=p->link;	//navigate p to position "i"
+		}
+		for(pos=1;pos<j;pos++)
+		{
+			q = q->link;	//navigate q to position "j"
+		}
+		temp = q->data;
+		q->data = p->data;  //swap data of position i and j
+		p->data = temp;
+		i++;				
+		j--;
+		
+	}
+}
